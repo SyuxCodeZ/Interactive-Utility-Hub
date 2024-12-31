@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Utilities Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Basic CSS Styling for Utilities Hub */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #000;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #darkModeToggle {
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .utility-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .utility-section {
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .utility-section h3 {
+            margin-top: 0;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="color"],
+        input[type="date"],
+        textarea {
+            width: 91%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.dark-mode header {
+            background-color: #222;
+        }
+
+        body.dark-mode .utility-section {
+            background-color: #444;
+            color: #fff;
+        }
+
+        body.dark-mode button {
+            background-color: #0275d8;
+        }
+
+        body.dark-mode button:hover {
+            background-color: #025aa5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Interactive Utilities Hub</h1>
+        <button id="darkModeToggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </header>
+
+    <div class="utility-container">
+        <!-- Utility 1: Random Number Generator -->
+        <div class="utility-section">
+            <h3>Random Number Generator</h3>
+            <button onclick="generateRandomNumber()">Generate Random Number</button>
+            <p id="randomNumberResult"></p>
+        </div>
+
+        <!-- Utility 2: Temperature Converter -->
+        <div class="utility-section">
+            <h3>Temperature Converter (Celsius to Fahrenheit)</h3>
+            <input type="number" id="tempCelsius" placeholder="Enter Celsius">
+            <button onclick="convertTemp()">Convert</button>
+            <p id="tempResult"></p>
+        </div>
+
+        <!-- Utility 3: Age Calculator -->
+        <div class="utility-section">
+            <h3>Age Calculator</h3>
+            <input type="date" id="dobInput">
+            <button onclick="calculateAge()">Calculate Age</button>
+            <p id="ageResult"></p>
+        </div>
+
+        <!-- Utility 4: Unit Converter -->
+        <div class="utility-section">
+            <h3>Unit Converter (Kilometers to Miles)</h3>
+            <input type="number" id="kmInput" placeholder="Enter Kilometers">
+            <button onclick="convertUnit()">Convert</button>
+            <p id="unitResult"></p>
+        </div>
+
+        <!-- Utility 5: Date Format Converter -->
+        <div class="utility-section">
+            <h3>Date Format Converter</h3>
+            <input type="date" id="dateInput">
+            <button onclick="convertDate()">Convert</button>
+            <p id="dateResult"></p>
+        </div>
+
+        <!-- Utility 6: BMI Calculator -->
+        <div class="utility-section">
+            <h3>BMI Calculator</h3>
+            <input type="number" id="heightInput" placeholder="Enter height (in meters)">
+            <input type="number" id="weightInput" placeholder="Enter weight (in kilograms)">
+            <button onclick="calculateBMI()">Calculate BMI</button>
+            <p id="bmiResult"></p>
+        </div>
+
+        <!-- Utility 7: Currency Converter -->
+        <div class="utility-section">
+            <h3>Currency Converter</h3>
+            <input type="number" id="currencyInput" placeholder="Enter amount">
+            <input type="text" id="currencyFrom" placeholder="From Currency (e.g., USD)">
+            <input type="text" id="currencyTo" placeholder="To Currency (e.g., EUR)">
+            <button onclick="convertCurrency()">Convert</button>
+            <p id="currencyResult"></p>
+        </div>
+
+        <!-- Utility 8: Percentage Calculator -->
+        <div class="utility-section">
+            <h3>Percentage Calculator</h3>
+            <input type="number" id="totalInput" placeholder="Total Amount">
+            <input type="number" id="percentageInput" placeholder="Percentage (%)">
+            <button onclick="calculatePercentage()">Calculate Percentage</button>
+            <p id="percentageResult"></p>
+        </div>
+
+        <!-- Utility 9: Age Difference Calculator -->
+        <div class="utility-section">
+            <h3>Age Difference Calculator</h3>
+            <input type="date" id="dob1Input">
+            <input type="date" id="dob2Input">
+            <button onclick="calculateAgeDifference()">Calculate Age Difference</button>
+            <p id="ageDifferenceResult"></p>
+        </div>
+
+        <!-- Utility 10: Random Color Generator -->
+        <div class="utility-section">
+            <h3>Random Color Generator</h3>
+            <button onclick="generateRandomColor()">Generate Color</button>
+            <p id="colorResult"></p>
+        </div>
+
+        <!-- Utility 11: Palindrome Checker -->
+        <div class="utility-section">
+            <h3>Palindrome Checker</h3>
+            <input type="text" id="palindromeInput" placeholder="Enter a word or phrase">
+            <button onclick="checkPalindrome()">Check Palindrome</button>
+            <p id="palindromeResult"></p>
+        </div>
+
+        <!-- Utility 12: Word Counter -->
+        <div class="utility-section">
+            <h3>Word Counter</h3>
+            <textarea id="wordCounterInput" placeholder="Enter text"></textarea>
+            <button onclick="countWords()">Count Words</button>
+            <p id="wordCounterResult"></p>
+        </div>
+
+        <!-- Utility 13: Leap Year Checker -->
+        <div class="utility-section">
+            <h3>Leap Year Checker</h3>
+            <input type="number" id="yearInput" placeholder="Enter Year">
+            <button onclick="checkLeapYear()">Check Leap Year</button>
+            <p id="leapYearResult"></p>
+        </div>
+
+        <!-- Utility 14: Hexadecimal to RGB Converter -->
+        <div class="utility-section">
+            <h3>Hexadecimal to RGB Converter</h3>
+            <input type="text" id="hexInput" placeholder="Enter Hex Color">
+            <button onclick="hexToRgb()">Convert</button>
+            <p id="hexResult"></p>
+        </div>
+
+        <!-- Utility 15: Countdown Timer -->
+        <div class="utility-section">
+            <h3>Countdown Timer</h3>
+            <input type="number" id="timerInput" placeholder="Seconds">
+            <button onclick="startTimer()">Start Timer</button>
+            <p id="timerResult"></p>
+        </div>
+
+        <!-- Utility 16: Fibonacci Sequence -->
+        <div class="utility-section">
+            <h3>Fibonacci Sequence Generator</h3>
+            <input type="number" id="fibonacciInput" placeholder="Number of terms">
+            <button onclick="generateFibonacci()">Generate</button>
+            <p id="fibonacciResult"></p>
+        </div>
+
+        <!-- Utility 17: Number to Word Converter -->
+        <div class="utility-section">
+            <h3>Number to Word Converter</h3>
+            <input type="number" id="numberInput" placeholder="Enter number">
+            <button onclick="convertNumberToWords()">Convert</button>
+            <p id="numberWordResult"></p>
+        </div>
+
+        <!-- Utility 18: Discount Calculator -->
+        <div class="utility-section">
+            <h3>Discount Calculator</h3>
+            <input type="number" id="priceInput" placeholder="Price">
+            <input type="number" id="discountInput" placeholder="Discount Percentage">
+            <button onclick="calculateDiscount()">Calculate Discount</button>
+            <p id="discountResult"></p>
+        </div>
+
+        <!-- Utility 19: Color Picker -->
+        <div class="utility-section">
+            <h3>Color Picker</h3>
+            <input type="color" id="colorPickerInput">
+            <button onclick="pickColor()">Pick Color</button>
+            <p id="colorResult"></p>
+        </div>
+
+        <!-- Utility 20: Random Joke Generator -->
+        <div class="utility-section">
+            <h3>Random Joke Generator</h3>
+            <button onclick="generateJoke()">Generate Joke</button>
+            <p id="jokeResult"></p>
+        </div>
+
+        <!-- Utility 21: Email Validator -->
+        <div class="utility-section">
+            <h3>Email Validator</h3>
+            <input type="text" id="emailInput" placeholder="Enter email">
+            <button onclick="validateEmail()">Validate Email</button>
+            <p id="emailResult"></p>
+        </div>
+
+        <!-- Utility 22: Time Zone Converter -->
+        <div class="utility-section">
+            <h3>Time Zone Converter</h3>
+            <input type="datetime-local" id="timeInput">
+            <input type="text" id="timezoneInput" placeholder="Enter target time zone">
+            <button onclick="convertTimeZone()">Convert Time</button>
+            <p id="timezoneResult"></p>
+        </div>
+
+        <!-- Utility 23: Random Quote Generator -->
+        <div class="utility-section">
+            <h3>Random Quote Generator</h3>
+            <button onclick="generateQuote()">Generate Quote</button>
+            <p id="quoteResult"></p>
+        </div>
+
+        <!-- Utility 24: String Reverser -->
+        <div class="utility-section">
+            <h3>String Reverser</h3>
+            <input type="text" id="stringInput" placeholder="Enter text">
+            <button onclick="reverseString()">Reverse String</button>
+            <p id="stringResult"></p>
+        </div>
+    </div>
+    <script>
+        // 1. Random Number Generator
+            function generateRandomNumber() {
+                const num = Math.floor(Math.random() * 100) + 1;
+                document.getElementById("randomNumberResult").innerText = `Random Number: ${num}`;
+            }
+
+            // 2. Temperature Converter (Celsius to Fahrenheit)
+            function convertTemp() {
+                const celsius = document.getElementById("tempCelsius").value;
+                const fahrenheit = (celsius * 9 / 5) + 32;
+                document.getElementById("tempResult").innerText = `${celsius}°C = ${fahrenheit.toFixed(2)}°F`;
+            }
+
+            // 3. Age Calculator
+            function calculateAge() {
+                const dob = new Date(document.getElementById("dobInput").value);
+                const today = new Date();
+                const age = today.getFullYear() - dob.getFullYear();
+                const m = today.getMonth() - dob.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                    age--;
+                }
+                document.getElementById("ageResult").innerText = `Your Age: ${age} years`;
+            }
+
+            // 4. Unit Converter (Kilometers to Miles)
+            function convertUnit() {
+                const km = document.getElementById("kmInput").value;
+                const miles = km * 0.621371;
+                document.getElementById("unitResult").innerText = `${km} km = ${miles.toFixed(2)} miles`;
+            }
+
+            // 5. Date Format Converter
+            function convertDate() {
+                const date = new Date(document.getElementById("dateInput").value);
+                const formattedDate = date.toLocaleDateString('en-US');
+                document.getElementById("dateResult").innerText = `Formatted Date: ${formattedDate}`;
+            }
+
+            // 6. BMI Calculator
+            function calculateBMI() {
+                const height = document.getElementById("heightInput").value;
+                const weight = document.getElementById("weightInput").value;
+                const bmi = weight / (height * height);
+                document.getElementById("bmiResult").innerText = `Your BMI: ${bmi.toFixed(2)}`;
+            }
+
+            // 7. Currency Converter
+            function convertCurrency() {
+                const amount = document.getElementById("currencyInput").value;
+                const fromCurrency = document.getElementById("currencyFrom").value;
+                const toCurrency = document.getElementById("currencyTo").value;
+
+                // Dummy conversion (for demo purposes)
+                const exchangeRate = 1.1; // Example exchange rate
+                const convertedAmount = amount * exchangeRate;
+                document.getElementById("currencyResult").innerText = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+            }
+
+            // 8. Percentage Calculator
+            function calculatePercentage() {
+                const total = document.getElementById("totalInput").value;
+                const percentage = document.getElementById("percentageInput").value;
+                const result = (total * percentage) / 100;
+                document.getElementById("percentageResult").innerText = `${percentage}% of ${total} is ${result}`;
+            }
+
+            // 9. Age Difference Calculator
+            function calculateAgeDifference() {
+                const dob1 = new Date(document.getElementById("dob1Input").value);
+                const dob2 = new Date(document.getElementById("dob2Input").value);
+                const diff = Math.abs(dob1.getFullYear() - dob2.getFullYear());
+                document.getElementById("ageDifferenceResult").innerText = `Age Difference: ${diff} years`;
+            }
+
+            // 10. Random Color Generator
+            function generateRandomColor() {
+                const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+                document.getElementById("colorResult").innerText = `Color: ${randomColor}`;
+                document.body.style.backgroundColor = randomColor;
+            }
+
+            // 11. Palindrome Checker
+            function checkPalindrome() {
+                const inputText = document.getElementById("palindromeInput").value;
+                const reversedText = inputText.split('').reverse().join('');
+                const isPalindrome = inputText === reversedText;
+                document.getElementById("palindromeResult").innerText = isPalindrome ? "It's a Palindrome!" : "Not a Palindrome";
+            }
+
+            // 12. Word Counter
+            function countWords() {
+                const text = document.getElementById("wordCounterInput").value;
+                const wordCount = text.split(/\s+/).filter(word => word.length > 0).length;
+                document.getElementById("wordCounterResult").innerText = `Word Count: ${wordCount}`;
+            }
+
+            // 13. Leap Year Checker
+            function checkLeapYear() {
+                const year = document.getElementById("yearInput").value;
+                const isLeap = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
+                document.getElementById("leapYearResult").innerText = isLeap ? `${year} is a Leap Year` : `${year} is not a Leap Year`;
+            }
+
+            // 14. Hexadecimal to RGB Converter
+            function hexToRgb() {
+                const hex = document.getElementById("hexInput").value;
+                const rgb = hexToRgbConverter(hex);
+                document.getElementById("hexResult").innerText = `RGB: ${rgb}`;
+            }
+
+            // 15. Countdown Timer
+            function startTimer() {
+                const seconds = document.getElementById("timerInput").value;
+                let countdown = seconds;
+                const timerInterval = setInterval(() => {
+                    if (countdown > 0) {
+                        document.getElementById("timerResult").innerText = `Time left: ${countdown--} seconds`;
+                    } else {
+                        clearInterval(timerInterval);
+                        document.getElementById("timerResult").innerText = "Time's up!";
+                    }
+                }, 1000);
+            }
+
+            // 16. Fibonacci Sequence Generator
+            function generateFibonacci() {
+                const terms = document.getElementById("fibonacciInput").value;
+                let fibonacci = [0, 1];
+                for (let i = 2; i < terms; i++) {
+                    fibonacci.push(fibonacci[i - 1] + fibonacci[i - 2]);
+                }
+                document.getElementById("fibonacciResult").innerText = `Fibonacci: ${fibonacci.join(', ')}`;
+            }
+
+            // 17. Number to Word Converter
+            function convertNumberToWords() {
+                const num = document.getElementById("numberInput").value;
+                const words = numberToWords(num);
+                document.getElementById("numberWordResult").innerText = `Number in words: ${words}`;
+            }
+
+            // 18. Discount Calculator
+            function calculateDiscount() {
+                const price = document.getElementById("priceInput").value;
+                const discount = document.getElementById("discountInput").value;
+                const finalPrice = price - (price * discount / 100);
+                document.getElementById("discountResult").innerText = `Final Price after ${discount}% discount: ${finalPrice.toFixed(2)}`;
+            }
+
+            // 19. Color Picker
+            function pickColor() {
+                const color = document.getElementById("colorPickerInput").value;
+                document.getElementById("colorResult").innerText = `Picked Color: ${color}`;
+            }
+
+            // 20. Random Joke Generator
+            function generateJoke() {
+                fetch("https://official-joke-api.appspot.com/jokes/random")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("jokeResult").innerText = `${data.setup} - ${data.punchline}`;
+                    });
+            }
+
+            // 21. Email Validator
+            function validateEmail() {
+                const email = document.getElementById("emailInput").value;
+                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const isValid = emailPattern.test(email);
+                document.getElementById("emailResult").innerText = isValid ? "Valid Email" : "Invalid Email";
+            }
+
+            // 22. Time Zone Converter
+            function convertTimeZone() {
+                const time = new Date(document.getElementById("timeInput").value);
+                const timezone = document.getElementById("timezoneInput").value;
+                const convertedTime = time.toLocaleString("en-US", { timeZone: timezone });
+                document.getElementById("timezoneResult").innerText = `Converted Time: ${convertedTime}`;
+            }
+
+            // 23. Random Quote Generator
+            function generateQuote() {
+                fetch("https://api.quotable.io/random")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("quoteResult").innerText = `${data.content} - ${data.author}`;
+                    });
+            }
+
+            // 24. String Reverser
+            function reverseString() {
+                const inputText = document.getElementById("stringInput").value;
+                const reversed = inputText.split('').reverse().join('');
+                document.getElementById("stringResult").innerText = `Reversed String: ${reversed}`;
+            }
+
+            // Dark Mode Toggle
+            function toggleDarkMode() {
+                document.body.classList.toggle("dark-mode");
+            }
+
+            // Handle mobile view by adjusting layout dynamically
+            window.addEventListener('resize', function () {
+                adjustLayoutForMobile();
+            });
+
+            function adjustLayoutForMobile() {
+                const utilitySections = document.querySelectorAll('.utility-section');
+                const windowWidth = window.innerWidth;
+
+                if (windowWidth < 768) {
+                    // Make utilities stack vertically on smaller screens
+                    utilitySections.forEach(section => section.style.width = '100%');
+                } else {
+                    // Reset to grid layout for larger screens
+                    utilitySections.forEach(section => section.style.width = '');
+                }
+            }
+
+            // Call the function on load to handle initial layout
+            adjustLayoutForMobile();
+
+    </script>
+</body>
+
+</html>
